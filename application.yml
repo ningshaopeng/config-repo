@@ -1,0 +1,41 @@
+logging:
+    level:
+        org.springframework.cloud: DEBUG
+        com.cmbchina.openbank: DEBUG
+        com.netflix: DEBUG
+        com.netflix.discovery: DEBUG
+
+server:
+  tomcat:
+    protocol_header: x-forwarded-proto
+    remote_ip_header: x-forwarded-for
+  use-forward-headers: false
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://eureka-services.paas.cmbchina.cn}/eureka/
+  healthcheck:
+      enabled: true
+  instance:
+    statusPageUrlPath: ${management.context-path}/info
+    healthCheckUrlPath: ${management.context-path}/health
+    leaseExpirationDurationInSeconds: 30 # 1 * 30s heartbeat
+    initialInstanceInfoReplicationIntervalSeconds: 1
+    appGroupName: 'sample'
+
+ribbon:
+  eureka:
+    approximateZoneFromHostname: true
+
+---
+spring:
+  profiles: cloud
+eureka:
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+  instance:
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+    secure-port: 443

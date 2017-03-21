@@ -1,0 +1,30 @@
+logging:
+    level:
+        org.springframework.cloud: DEBUG
+zuul:
+    sensitiveHeaders: Authorization
+    ignored-services: "*"
+    routes:
+        declares:
+            path: /declares/**
+            serviceId: declare-services
+            stripPrefix: false
+        auth:
+            path: /jggl/**
+            serviceId: auth-service
+            stripPrefix: false           
+        notice:
+            path: /notices/**
+            serviceId: notice-services
+            stripPrefix: false
+        notice-file:
+            path: /files/**
+            serviceId: notice-file-services
+            stripPrefix: false
+        interface-declare:
+            path: /interfaces/**
+            serviceId: interface-declare-service
+            stripPrefix: false
+declares-service:
+  ribbon:
+    enableZoneAffinity: true
