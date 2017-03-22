@@ -14,7 +14,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:https://fintech-project-002.chinacloudapp.cn:8761}/eureka/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://fintech-project-002.chinacloudapp.cn:8761}/eureka/
   healthcheck:
       enabled: true
   instance:
